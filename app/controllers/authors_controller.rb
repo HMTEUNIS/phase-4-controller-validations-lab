@@ -8,8 +8,10 @@ class AuthorsController < ApplicationController
 
   def create
     author = Author.create(author_params)
-
+    if author.save
     render json: author, status: :created
+    else render json: { message: "Validation failed", errors: author.errors }, status: :unprocessable_entity
+    end
   end
 
   private
